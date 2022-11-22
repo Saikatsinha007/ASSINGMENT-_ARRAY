@@ -1,0 +1,71 @@
+class test{
+
+    int gcd(int a, int b)
+    {
+        if (b == 0)
+            return a;
+        else
+            return gcd(b, a % b);
+    }
+
+    public int[] leftRotation(int[] arr,int p){
+        int temp ;
+        int n = arr.length;
+        int X = gcd(arr.length,p);
+        int i,j,k;
+        for(i=0;i<X;i++){
+            temp = arr[i];
+            j = i;
+            while(true){
+                k = j+p;
+                if(k>=n){
+                    k = k -n;
+                }
+                if(k==i){
+                    break;
+                }
+                arr[j] = arr[k];
+                j=k;
+            }
+            arr[j]=temp;
+
+        }
+
+        return arr;
+        
+    }
+
+    public int[] rightRotation(int[] arr,int p){
+        int[] temp = new int[p];
+        
+        for(int i=arr.length-p,c=0;i<arr.length;i++,c++){
+            temp[c]=arr[i];
+        }
+        for(int i=arr.length-1;i>=p;i--){
+            arr[i]=arr[i-p];
+        }
+        for(int i=0;i<p;i++){
+            arr[i]=temp[i];
+        }
+
+        return arr;
+    }
+
+    public int[] rotation(int[] arr,int p,int d){
+        if(d==0){
+            return leftRotation(arr,p);
+        }else{
+            return rightRotation(arr,p);
+        }
+    }
+
+    public static void main(String[] args){
+        int[] arr = new int[]{1,2,3,4,5,6,7,8,9};
+        test t = new test();
+
+        int[] res = t.rotation(arr,3,1);
+        for(int i=0;i<res.length;i++){
+            System.out.print(res[i]+" ");
+        }
+    }
+}
